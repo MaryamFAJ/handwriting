@@ -142,7 +142,7 @@ class _MyAppsState extends State<MyApps> {
 
             ),
             SizedBox(height:20),
-            Text('URL',
+            Text('Web Address (URL)',
               style: TextStyle(
                   color: Colors.lightBlueAccent,
                   letterSpacing: 2.0,
