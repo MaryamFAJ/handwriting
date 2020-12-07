@@ -52,112 +52,107 @@ class _MyAppsState extends State<MyApps> {
 
       body: Container(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            SizedBox(height: 70.0),
-            Row(
-              children:<Widget> [
 
+            Container(
+        padding: EdgeInsets.all(50),
+        decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/blur.jfif"),
+          fit: BoxFit.cover,
+        ),),
+              child:
+              Column(
+                children: [
+                  IconButton(
+                      icon: Icon(Icons.camera_alt_rounded,
+                          color: Colors.white,
+                          size: 50.0),
+                      onPressed: (){
+                        getImage(true);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PictureRoute(file:_image )),
+                        );
 
+                        },
 
-                Container(
-                  color:Colors.lightBlueAccent,
-                  padding: EdgeInsets.all(20),
-                  child: Text('Select Image from Gallery',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      letterSpacing: 2.0,
-                      fontSize: 15 ,
-                    ),),
-                ),
-                Container(
-                  width: 50,
-                  height: 55,
-                  decoration: BoxDecoration(
-                    color: Colors.lightBlueAccent,
-                    border: Border(
-                      right: BorderSide.none,
-                    ),
-                    borderRadius: BorderRadius.circular(4.0),
                   ),
-                  child: IconButton(
-                    icon: Icon(Icons.insert_drive_file,
+                  SizedBox(height:20),
+                  Text('Take a picture',
+                    style: TextStyle(
                         color: Colors.white,
-                        size: 37.0),
+                        letterSpacing: 2.0,
+                        fontSize: 20),
+                  ),
+                ],
+              ),
+            ),
+
+
+            Container(
+              padding: EdgeInsets.all(70),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/bl.jfif"),
+                  fit: BoxFit.cover,
+                ),),
+              child:
+              Column(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.insert_photo,
+                        color: Colors.white,
+                        size: 50.0),
                     onPressed: (){
-                      getImage(false);
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ThirdRoute(file:_image )),
+                        MaterialPageRoute(builder: (context) => PictureRoute(file:_image )),
                       );
-                      //
+                      getImage(false);
+                      },
 
-
-                    },
                   ),
-                ),
-
-
-              ],),
-
-
-
-
-
-            SizedBox(height: 70.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.camera_alt,
-                      color: Colors.grey[500],
-                      size: 38.0),
-                  onPressed: (){
-                    getImage(true);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ThirdRoute(file:_image )));
-                  },
-
-                ),
-                Text('Take a picture',
-                  style: TextStyle(
-                      color: Colors.lightBlueAccent,
-                      letterSpacing: 2.0,
-                      fontSize: 20),
-                ),
-                //_image == null? Container() : Image.file(_image, height: 200.0, width: 300.0,),
-
-              ],
+                  SizedBox(height:20),
+                  Text('choose from Gallery',
+                    style: TextStyle(
+                        color: Colors.white,
+                        letterSpacing: 2.0,
+                        fontSize: 20),
+                  ),
+                ],
+              ),
             ),
 
-            SizedBox(height: 70.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text('Paste URL of your Image',
-                  style: TextStyle(
-                      color: Colors.lightBlueAccent,
-                      letterSpacing: 2.0,
-                      fontSize: 20),
-                ),
-                IconButton(
-                  icon: Icon(Icons. public,
-                      color: Colors.grey[500],
-                      size: 38.0),
-                  onPressed: (){
-                    getImage(true);
-                  },
 
-                ),
+      Container(
+        padding: EdgeInsets.all(50),
+        color: Colors.white,
 
+        child:
+        Column(
+          children: [
+            IconButton(
+              icon: Icon(Icons.cloud,
+                  color: Colors.lightBlueAccent,
+                  size: 50.0),
+              onPressed: (){
+                getImage(false); },
 
-
-
-              ],
             ),
-          ], ),
-      ), );
+            SizedBox(height:20),
+            Text('URL',
+              style: TextStyle(
+                  color: Colors.lightBlueAccent,
+                  letterSpacing: 2.0,
+                  fontSize: 20),
+            ),
+          ],
+        ),
+      ),
+],
+    ), ),);
 
     //floatingActionButton: (
     //onPressed: (){},
@@ -174,13 +169,55 @@ class _MyAppsState extends State<MyApps> {
 }
 
 class PictureRoute extends StatelessWidget {
+  final File file;
 
+  const PictureRoute({Key key, this.file}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Second Route"),
+        title: Text("Preview Image"),
+      backgroundColor: Colors.lightBlueAccent,),
+
+
+      body: Center(
+        child: Column(
+          children: [
+            file == null? Container() : Image.file(file, height: 500.0, width: 300.0,),
+            Row(
+              //padding: EdgeInsets.all(20),
+              children: [
+                SizedBox(width: 70),
+                IconButton(
+            icon: Icon(Icons.cancel_outlined,
+                color: Colors.red,
+                size: 60.0),
+      onPressed: (){
+        Navigator.pop(context);
+      },
+
+    ),
+                SizedBox(width: 100),
+
+                IconButton(
+                  icon: Icon(Icons.check_circle_outline_rounded,
+                      color: Colors.green,
+                      size: 60.0),
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ThirdRoute()),
+                    );
+                  },)
+
+
+
+
+              ],
+            )],
+        ),
       ),
+
 
     );
   }
@@ -189,19 +226,17 @@ class PictureRoute extends StatelessWidget {
 
 
 class ThirdRoute extends StatelessWidget {
-  final File file;
 
-  const ThirdRoute({Key key, this.file}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Second Route"),
+        title: Text("Extracted Text"),
+        backgroundColor: Colors.lightBlueAccent,
       ),
       body: Center(
         child: Column(
           children: [
-            file == null? Container() : Image.file(file, height: 500.0, width: 300.0,),
             RaisedButton(
               color: Colors.lightBlueAccent,
               onPressed: (){

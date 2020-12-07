@@ -20,9 +20,9 @@ class FirstRoute extends StatelessWidget {
     return Scaffold(
 
       appBar: AppBar(
-        title: Text('Home ',
+        title: Text('Upload Image ',
             style: TextStyle(
-              color: Colors.grey[850],
+              color: Colors.white,
               letterSpacing: 2.0,)),
         centerTitle: true,
         backgroundColor: Colors.lightBlueAccent,
@@ -41,19 +41,6 @@ class FirstRoute extends StatelessWidget {
       body:
       MyApps(),
 
-
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // Add your onPressed code here!
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SecondRoute()),
-          );
-        },
-        label: Text('Analyse'),
-        icon: Icon(Icons.arrow_forward),
-        backgroundColor: Colors.blueAccent,
-      ),
 
 
     );

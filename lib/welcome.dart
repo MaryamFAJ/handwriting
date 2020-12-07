@@ -2,6 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:handwriting/home.dart';
 
 
+
+void main() {
+  runApp(MaterialApp(
+    title: 'Handwriting Extraction',
+    home: Home(),
+  ));
+}
+
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
