@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:handwriting/camera.dart';
 import 'package:handwriting/welcome.dart';
 import 'package:handwriting/home.dart';
-import 'package:handwriting/postrequest.dart';
+//import 'package:handwriting/postrequest.dart';
 import 'dart:convert';
 import 'dart:io';
 
@@ -20,9 +20,8 @@ void main() {
   runApp(MaterialApp(
     title: 'Handwriting Extraction',
     home: Home(),
-
-  ));}
-
+  ));
+}
 
 class DialogWithTextField extends StatefulWidget {
   @override
@@ -45,17 +44,16 @@ class _DialogWithTextFieldState extends State<DialogWithTextField> {
         });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: RaisedButton(
           color: Colors.lightBlueAccent,
-          child: Text("URL",
-            style: TextStyle(
-                color: Colors.white
-            ),),
+          child: Text(
+            "URL",
+            style: TextStyle(color: Colors.white),
+          ),
           onPressed: _displayDialog,
         ),
       ),
@@ -64,74 +62,73 @@ class _DialogWithTextFieldState extends State<DialogWithTextField> {
 }
 
 Widget _DialogWithTextField(BuildContext context) => Container(
-  height: 220,
-  decoration: BoxDecoration(
-    color:  Colors.white,
-    shape: BoxShape.rectangle,
-    borderRadius: BorderRadius.all(Radius.circular(12)),
-  ),
-  child: Column(
-    children: <Widget>[
-      SizedBox(height: 24),
-      Text(
-        "Web Address (URL)".toUpperCase(),
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-          fontSize: 17,
-        ),
+      height: 220,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
       ),
-      SizedBox(height: 10),
-      Padding(
-          padding: EdgeInsets.only(top: 10, bottom: 10, right: 15, left: 15),
-          child: TextFormField(
-            maxLines: 1,
-            autofocus: false,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              labelText: 'Text Form Field 1',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-            ),
-          )
-      ),
-
-      SizedBox(height: 10),
-      Row(
-        mainAxisSize: MainAxisSize.min,
+      child: Column(
         children: <Widget>[
-          FlatButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text(
-              "Cancel",
-              style: TextStyle(
-                color: Colors.black,
-              ),
+          SizedBox(height: 24),
+          Text(
+            "Web Address (URL)".toUpperCase(),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 17,
             ),
           ),
-          SizedBox(width: 8),
-          RaisedButton(
-            color: Colors.white,
-            child: Text(
-              "Save".toUpperCase(),
-              style: TextStyle(
-                color: Colors.redAccent,
+          SizedBox(height: 10),
+          Padding(
+              padding:
+                  EdgeInsets.only(top: 10, bottom: 10, right: 15, left: 15),
+              child: TextFormField(
+                maxLines: 1,
+                autofocus: false,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: 'Text Form Field 1',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                ),
+              )),
+          SizedBox(height: 10),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  "Cancel",
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
               ),
-            ),
-            onPressed: () {
-              print('Update the user info');
-              // return Navigator.of(context).pop(true);
-            },
-          )
+              SizedBox(width: 8),
+              RaisedButton(
+                color: Colors.white,
+                child: Text(
+                  "Save".toUpperCase(),
+                  style: TextStyle(
+                    color: Colors.redAccent,
+                  ),
+                ),
+                onPressed: () {
+                  print('Update the user info');
+                  // return Navigator.of(context).pop(true);
+                },
+              )
+            ],
+          ),
         ],
       ),
-    ],
-  ),
-);
+    );
 
 class UserInfoEdit extends StatefulWidget {
 //  String phoneNumber;
@@ -212,7 +209,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
                             CircleAvatar(
                               backgroundImage: _image == null
                                   ? NetworkImage(
-                                  'https://git.unilim.fr/assets/no_group_avatar-4a9d347a20d783caee8aaed4a37a65930cb8db965f61f3b72a2e954a0eaeb8ba.png')
+                                      'https://git.unilim.fr/assets/no_group_avatar-4a9d347a20d783caee8aaed4a37a65930cb8db965f61f3b72a2e954a0eaeb8ba.png')
                                   : FileImage(_image),
                               radius: 50.0,
                             ),
@@ -348,11 +345,11 @@ class _UserInfoEditState extends State<UserInfoEdit> {
                               child: FlatButton(
                                 child: FittedBox(
                                     child: Text(
-                                      'Save',
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 16),
-                                      textAlign: TextAlign.center,
-                                    )),
+                                  'Save',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                  textAlign: TextAlign.center,
+                                )),
                                 onPressed: () {
                                   if (_formKey.currentState.validate()) {
                                     _startUploading();
@@ -445,7 +442,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
     });
 
     final mimeTypeData =
-    lookupMimeType(image.path, headerBytes: [0xFF, 0xD8]).split('/');
+        lookupMimeType(image.path, headerBytes: [0xFF, 0xD8]).split('/');
 
     // Intilize the multipart request
     final imageUploadRequest = http.MultipartRequest('POST', apiUrl);
@@ -483,10 +480,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
   }
 
   void _startUploading() async {
-    if (_image != null ||
-        _name != '' ||
-        _email != '' ||
-        _contact != '') {
+    if (_image != null || _name != '' || _email != '' || _contact != '') {
       final Map<String, dynamic> response = await _uploadImage(_image);
 
       // Check if any error occured

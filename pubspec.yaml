@@ -24,8 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  starflut:
-    path: C:\Users\iDAFAdmin\github\starcore_for_flutter/starflut
+  #starflut:
+    #path: C:\Users\iDAFAdmin\github\starcore_for_flutter/starflut
 
 
 
