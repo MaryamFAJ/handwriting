@@ -82,29 +82,14 @@ class Home extends StatelessWidget {
 
               ),
               SizedBox(height:20),
-
-
             ],
           ),
-
-
         ),
       ),
     );
-
-
-
-
-
-
-
     // Add your onPressed code here!
-
-
   }
 // Navigate to second route when tapped.
-
-
 }
 
 

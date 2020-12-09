@@ -1,19 +1,25 @@
 import 'dart:io';
 import 'dart:convert';
 import 'dart:ui';
+import 'package:handwriting/handwriting_services.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:path/path.dart';
+
+
 
 
 class MyApps extends StatefulWidget {
-
   @override
   _MyAppsState createState() => _MyAppsState();
 }
 
 class _MyAppsState extends State<MyApps> {
   File _image;
+
+
   Future getImage(bool isCamera) async {
     File image;
 
@@ -23,7 +29,9 @@ class _MyAppsState extends State<MyApps> {
       image = await ImagePicker.pickImage(source: ImageSource.gallery);
     }
     setState((){
-      _image = image;
+      _image = File(image.path);
+      //instantiate service class
+      Service test = Service(_image);
 
       showImage(){
         if(image == null){
@@ -44,8 +52,13 @@ class _MyAppsState extends State<MyApps> {
   }
 
 
+  //var response = await http.post(url, body: _image);
+
+
   @override
+
   Widget build(BuildContext context){
+
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -73,7 +86,7 @@ class _MyAppsState extends State<MyApps> {
                         getImage(true);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => PictureRoute(file:_image )),
+                          MaterialPageRoute(builder: (context) => PictureRoute(picture:_image )),
                         );
 
                         },
@@ -92,7 +105,7 @@ class _MyAppsState extends State<MyApps> {
 
 
             Container(
-              padding: EdgeInsets.all(70),
+              padding: EdgeInsets.all(50),
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/bl.jfif"),
@@ -108,7 +121,7 @@ class _MyAppsState extends State<MyApps> {
                     onPressed: (){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => PictureRoute(file:_image )),
+                        MaterialPageRoute(builder: (context) => PictureRoute(picture:_image )),
                       );
                       getImage(false);
                       },
@@ -124,33 +137,6 @@ class _MyAppsState extends State<MyApps> {
                 ],
               ),
             ),
-
-
-      Container(
-        padding: EdgeInsets.all(50),
-        color: Colors.white,
-
-        child:
-        Column(
-          children: [
-            IconButton(
-              icon: Icon(Icons.cloud,
-                  color: Colors.lightBlueAccent,
-                  size: 50.0),
-              onPressed: (){
-                getImage(false); },
-
-            ),
-            SizedBox(height:20),
-            Text('URL',
-              style: TextStyle(
-                  color: Colors.lightBlueAccent,
-                  letterSpacing: 2.0,
-                  fontSize: 20),
-            ),
-          ],
-        ),
-      ),
 ],
     ), ),);
 
@@ -168,11 +154,25 @@ class _MyAppsState extends State<MyApps> {
   }
 }
 
-class PictureRoute extends StatelessWidget {
-  final File file;
+class PictureRoute extends StatefulWidget {
+  final File picture;
 
-  const PictureRoute({Key key, this.file}) : super(key: key);
+  const PictureRoute({Key key, this.picture}) : super(key: key);
+
+
   @override
+
+  _PictureRouteState createState() => _PictureRouteState();
+}
+
+class _PictureRouteState extends State<PictureRoute> {
+  File picture;
+
+
+
+
+  @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -183,7 +183,8 @@ class PictureRoute extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            file == null? Container() : Image.file(file, height: 500.0, width: 300.0,),
+            widget.picture == null? Container() : Image.file(widget.picture, height: 500.0, width: 300.0,),
+
             Row(
               //padding: EdgeInsets.all(20),
               children: [
@@ -204,15 +205,9 @@ class PictureRoute extends StatelessWidget {
                       color: Colors.green,
                       size: 60.0),
                   onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ThirdRoute()),
-                    );
+                    handwritingService().addService(Service(picture));
+
                   },)
-
-
-
-
               ],
             )],
         ),
@@ -222,7 +217,6 @@ class PictureRoute extends StatelessWidget {
     );
   }
 }
-
 
 
 class ThirdRoute extends StatelessWidget {
@@ -258,3 +252,6 @@ class ThirdRoute extends StatelessWidget {
     );
   }
 }
+
+
+//diaglog

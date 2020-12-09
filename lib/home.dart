@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:handwriting/main.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:flutter/foundation.dart';
@@ -38,21 +38,47 @@ class FirstRoute extends StatelessWidget {
         ),
 
       ),
-      body:
-      MyApps(),
+      body: ListView(
+        padding: const EdgeInsets.all(5),
+        children: <Widget>[
+          Container(
+            height: 400,
+            child: MyApps(),
+          ),
+          Container(
+            height: 50,
 
-
-
-    );
-
+            child: DialogWithTextField(),
+          ),
+        ],
+      )
+        );
     // Add your onPressed code here!
-
-
   }
 // Navigate to second route when tapped.
 
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 class Notes {
@@ -95,6 +121,7 @@ class SecondRoute extends StatelessWidget{
 
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
+          Share.share('jiiii');
           // Add your onPressed code here!
         },
 
