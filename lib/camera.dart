@@ -167,10 +167,12 @@ class PictureRoute extends StatelessWidget {
                     var res = await pic2text(file);
                     var resStr = await res.stream.bytesToString();
                     var body = json.decode(resStr);
+                    print(body.runtimeType);
 
                     if (res.statusCode == 422) {
                       return print('an error occurred');
                     }
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => ThirdRoute(body)),
@@ -189,8 +191,10 @@ class PictureRoute extends StatelessWidget {
 class ThirdRoute extends StatelessWidget {
   final List texts;
   ThirdRoute(this.texts);
+
   @override
   Widget build(BuildContext context) {
+    print(texts);
     return Scaffold(
       appBar: AppBar(
         title: Text("Extracted Text"),
@@ -199,12 +203,15 @@ class ThirdRoute extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            ListView(
-              children: texts.map((text) {
-                return ListTile(
-                  title: Text(text),
-                );
-              }).toList(),
+            Expanded(
+              child: ListView(
+                shrinkWrap: true,
+                children: texts.map((text) {
+                  return ListTile(
+                    title: Text(text),
+                  );
+                }).toList(),
+              ),
             ),
             RaisedButton(
               color: Colors.lightBlueAccent,
