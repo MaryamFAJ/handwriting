@@ -1,11 +1,8 @@
-import 'dart:io';
+
 import 'package:handwriting/main.dart';
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
-import 'package:flutter/foundation.dart';
 import 'package:handwriting/camera.dart';
-import 'package:http/http.dart' as http;
-import 'dart:async';
+
 
 
 void main() {
@@ -42,14 +39,16 @@ class FirstRoute extends StatelessWidget {
         padding: const EdgeInsets.all(5),
         children: <Widget>[
           Container(
-            height: 400,
-            child: MyApps(),
-          ),
+              height: 400,
+              child: MyApps(),
+            ),
+          SizedBox(height: 30),
           Container(
-            height: 50,
+              height: 50,
 
-            child: DialogWithTextField(),
-          ),
+              child: DialogWithTextField(),
+            ),
+
         ],
       )
         );
@@ -58,91 +57,5 @@ class FirstRoute extends StatelessWidget {
 // Navigate to second route when tapped.
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class Notes {
-  final String name;
-  final String description;
-
-  Notes({@required this.name, @required this.description});
-}
-
-class SecondRoute extends StatelessWidget{
-
-
-  List<Notes> notes = [
-    Notes(
-        name: 'crunchy', description: 'a fierce Alligator with many teeth'
-    ),
-    Notes(
-        name: 'grunchy', description:' too big and hungry looking'
-    ),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Colors.grey[900],
-      appBar: AppBar(
-
-          title: Text('Share Appbar '),
-          centerTitle: true,
-          backgroundColor: Colors.grey[850],
-          elevation: 0.0),
-      body: Column(
-        children: notes.map((Notes notes) => Card(
-          child: ListTile(
-            title:Text(notes.name),
-            subtitle: Text(notes.description),
-            onTap: ()=>share(context, notes),
-          ),
-        )).toList(),
-      ),
-
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Share.share('jiiii');
-          // Add your onPressed code here!
-        },
-
-        label: Text('Share'),
-        icon: Icon(Icons.share),
-        backgroundColor: Colors.amber,
-      ),
-    );
-
-
-  }
-  void share(BuildContext context, Notes notes) {
-    final RenderBox box = context.findRenderObject();
-    final String text = '${notes.name} - ${notes.description}';
-
-    Share.share(
-      text, subject: notes.description,
-      sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
-    );
-  }
-}
-
 
 

@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:convert';
 import 'dart:ui';
 import 'package:handwriting/functions.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -83,7 +82,7 @@ class _MyAppsState extends State<MyApps> {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(70),
+              padding: EdgeInsets.all(50),
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/bl.jfif"),
@@ -112,37 +111,6 @@ class _MyAppsState extends State<MyApps> {
                     'choose from Gallery',
                     style: TextStyle(
                         color: Colors.white, letterSpacing: 2.0, fontSize: 20),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(50),
-              color: Colors.white,
-              child: Column(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.cloud,
-                        color: Colors.lightBlueAccent, size: 50.0),
-                    onPressed: () async {
-                      await getImage(false);
-                      if (_image == null) {
-                        print("No image selected");
-                      }
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PictureRoute(file: _image)),
-                      );
-                    },
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'URL',
-                    style: TextStyle(
-                        color: Colors.lightBlueAccent,
-                        letterSpacing: 2.0,
-                        fontSize: 20),
                   ),
                 ],
               ),
@@ -201,9 +169,8 @@ class PictureRoute extends StatelessWidget {
                     var body = json.decode(resStr);
 
                     if (res.statusCode == 422) {
-                      return print('An error occured');
+                      return print('an error occurred');
                     }
-
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => ThirdRoute(body)),
