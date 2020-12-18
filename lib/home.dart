@@ -44,7 +44,7 @@ class FirstRoute extends StatelessWidget {
             ),
           SizedBox(height: 30),
           Container(
-              height: 50,
+              height: 150,
 
               child: DialogWithTextField(),
             ),

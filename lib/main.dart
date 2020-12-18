@@ -1,12 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:handwriting/welcome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:handwriting/camera.dart';
+import 'package:handwriting/functions.dart';
+import 'package:http/http.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 void main() {
   runApp(MaterialApp(
     title: 'Handwriting Extraction',
-    home: Home(),
+    home: Welcome(),
   ));
 }
 
@@ -16,7 +22,28 @@ class DialogWithTextField extends StatefulWidget {
 }
 
 class _DialogWithTextFieldState extends State<DialogWithTextField> {
+  ProgressDialog pr;
+
+
+
   _displayDialog() {
+    pr = new ProgressDialog(context, type: ProgressDialogType.Normal);
+
+    //Optional
+    pr.style(
+      message: 'Please wait...',
+      borderRadius: 10.0,
+      backgroundColor: Colors.white,
+      progressWidget: CircularProgressIndicator(),
+      elevation: 10.0,
+      insetAnimCurve: Curves.easeInOut,
+      progressTextStyle: TextStyle(
+          color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
+      messageTextStyle: TextStyle(
+          color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600),
+    );
+
+    TextEditingController myController = new TextEditingController();
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -30,32 +57,59 @@ class _DialogWithTextFieldState extends State<DialogWithTextField> {
           );
         });
   }
+  TextEditingController myController = new TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      body: Center(
-        child: RaisedButton(
-          color: Colors.lightBlueAccent,
-          child: Text(
-            "URL",
-            style: TextStyle(color: Colors.white),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [IconButton(
+                    icon: Icon(Icons.cloud_circle,
+                        color: Colors.lightBlueAccent, size: 70.0
+                    ),
+                    onPressed: _displayDialog,
+                  ),
+          SizedBox(height: 40),
+          Center(
+            child: Text('URL',
+                style: TextStyle(
+                    color: Colors.lightBlueAccent,
+                    letterSpacing: 2.0,
+                    fontSize: 20)),
           ),
-          onPressed: _displayDialog,
-        ),
+
+        ],
       ),
     );
   }
 }
 
-// ignore: non_constant_identifier_names
+// ignore: non_constant_identifier_name
+
+TextEditingController myController = new TextEditingController();
+
+@override
+
 Widget _DialogWithTextField(BuildContext context) => Container(
+
+
+
       height: 220,
       decoration: BoxDecoration(
         color: Colors.white,
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.all(Radius.circular(12)),
       ),
+
       child: Column(
         children: <Widget>[
           SizedBox(height: 24),
@@ -68,20 +122,26 @@ Widget _DialogWithTextField(BuildContext context) => Container(
               fontSize: 17,
             ),
           ),
+
           SizedBox(height: 10),
           Padding(
               padding:
                   EdgeInsets.only(top: 10, bottom: 10, right: 15, left: 15),
-              child: TextFormField(
+              child: TextField(
+                controller: myController,
+
                 maxLines: 1,
                 autofocus: false,
                 keyboardType: TextInputType.text,
+
                 decoration: InputDecoration(
-                  labelText: 'Text Form Field 1',
+
+                  labelText: 'URL',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                 ),
+
               )),
           SizedBox(height: 10),
           Row(
@@ -107,14 +167,41 @@ Widget _DialogWithTextField(BuildContext context) => Container(
                     color: Colors.redAccent,
                   ),
                 ),
-                onPressed: () {
-                  print('Update the user info');
-                  // return Navigator.of(context).pop(true);
-                },
+                onPressed: ()  async {
+                  //pr.show();
+                  //final uri = "https://handwriting-extraction.herokuapp.com/predict handwriting url";
+                  //final headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
+                  //Map<String, dynamic> body = {'url': myController.text};
+                  //String jsonBody = json.encode(body);
+
+
+                  //Response response = await post(
+                    //uri,
+                    //headers: headers,
+                    //body: jsonBody,
+                  //);
+                  //print(response);
+
+                  var res = await url2text(myController.text);
+                  var response = res.body;
+
+                  var body = json.decode(response);
+                  print(body);
+
+
+                  //if(res.statusCode == 200){
+                    //print('error');
+
+                  //}
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ThirdRoute(body)),
+                  );
+                }
               )
             ],
           ),
         ],
       ),
     );
-

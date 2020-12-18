@@ -6,11 +6,11 @@ import 'package:handwriting/home.dart';
 void main() {
   runApp(MaterialApp(
     title: 'Handwriting Extraction',
-    home: Home(),
+    home: Welcome(),
   ));
 }
 
-class Home extends StatelessWidget {
+class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
