@@ -8,6 +8,7 @@ import 'package:handwriting/camera.dart';
 import 'package:handwriting/functions.dart';
 import 'package:http/http.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:handwriting/slider/sidebar/sidebar_layout.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -182,11 +183,21 @@ Widget _DialogWithTextField(BuildContext context) => Container(
                   //);
                   //print(response);
 
+                  try{
+                    var res = await url2text(myController.text);
+                    var response = res.body;
+                    var body = json.decode(response);
+                    print(body);
+                  }
+                  catch(e){
+                    print('there is an error with the url submitted: $e');
+
+                  }
                   var res = await url2text(myController.text);
                   var response = res.body;
-
                   var body = json.decode(response);
                   print(body);
+
 
 
                   //if(res.statusCode == 200){

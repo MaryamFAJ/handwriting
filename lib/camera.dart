@@ -403,7 +403,7 @@ class _ThirdRouteState extends State<ThirdRoute> {
                   icon: Icon(Icons.share_sharp,
                       color: Colors.lightBlueAccent, size: 50.0),
                   onPressed: () {
-                    Share.share('Hi');
+                    Share.share( widget.texts.join(''));
                   },
                 ),],
 
@@ -418,7 +418,14 @@ class _ThirdRouteState extends State<ThirdRoute> {
   }
   Widget _buildSliders() {
     return Column(
-      children: [_pitch(), _rate()],
+      children:[
+            Text("Pitch",
+            style: TextStyle(color: Colors.black, letterSpacing: 2.0, fontSize: 20),
+    ),_pitch(),
+        Text("Speech Rate",
+          style: TextStyle(color: Colors.blue, letterSpacing: 2.0, fontSize: 20),
+        ),
+        _rate()],
     );
   }
 
@@ -426,6 +433,7 @@ class _ThirdRouteState extends State<ThirdRoute> {
     return Slider(
         value: volume,
         onChanged: (newVolume) {
+          title: 'volume';
           setState(() => volume = newVolume);
         },
         min: 0.0,
@@ -444,11 +452,12 @@ class _ThirdRouteState extends State<ThirdRoute> {
       max: 2.0,
       divisions: 15,
       label: "Pitch: $pitch",
-      activeColor: Colors.red,
+      activeColor: Colors.black54,
     );
   }
 
   Widget _rate() {
+    title: 'Speech rate';
     return Slider(
       value: rate,
       onChanged: (newRate) {
@@ -458,7 +467,8 @@ class _ThirdRouteState extends State<ThirdRoute> {
       max: 2.0,
       divisions: 20,
       label: "Rate: $rate",
-      activeColor: Colors.green,
+      activeColor:
+      Colors.blue,
     );
   }
 

@@ -1,4 +1,4 @@
-
+import 'package:handwriting/navigation_bloc/navigation_bloc.dart';
 import 'package:handwriting/main.dart';
 import 'package:flutter/material.dart';
 import 'package:handwriting/camera.dart';
@@ -11,25 +11,25 @@ void main() {
     home: FirstRoute(),
   ));
 }
-class FirstRoute extends StatelessWidget {
+class FirstRoute extends StatelessWidget with NavigationStates {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
 
       appBar: AppBar(
-        title: Text('Upload Image ',
+        title: Text('Home ',
             style: TextStyle(
               color: Colors.white,
               letterSpacing: 2.0,)),
         centerTitle: true,
         backgroundColor: Colors.lightBlueAccent,
         elevation: 0.0,
+
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
               icon: const Icon(Icons.menu,),
-              onPressed: () { Scaffold.of(context).openDrawer();},
-              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              iconSize: 10,
             );
           },
         ),

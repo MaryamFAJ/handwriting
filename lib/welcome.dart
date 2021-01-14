@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:handwriting/home.dart';
-
+import 'package:handwriting/slider/sidebar/sidebar.dart';
+import 'package:handwriting/slider/sidebar/sidebar_layout.dart';
 
 
 void main() {
   runApp(MaterialApp(
     title: 'Handwriting Extraction',
-    home: Welcome(),
+    home: SideBar(),
   ));
 }
 
@@ -76,7 +77,7 @@ class Welcome extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => FirstRoute()),
+                    MaterialPageRoute(builder: (context) => SideBarLayout()),
                   );
                 },
 
